@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+    <title></title>
+    <link rel="stylesheet" href="./message.css">
+    <style>
+        .download-area {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-direction: row;
+            width: 80%;
+            margin: 40% auto auto auto;
+            padding: 5%;
+            background: #f9f9f9;
+            border-radius: 4px;
+            -ms-flex-align: center;
+            align-items: center
+        }
+
+        .download-area .logo {
+            width: 15%;
+            margin-right: 5%
+        }
+
+        .download-area .t-1 {
+            text-align: left;
+            font-size: 14px;
+            color: #fb7299
+        }
+
+        .download-area .t-2 {
+            text-align: left;
+            margin-top: .21333rem;
+            font-size: 15px;
+            color: #999
+        }
+
+        .download-area .button {
+            font-size: 14px;
+            color: #fff;
+            width: 5rem;
+            height: 1.5rem;
+            line-height: 1.5rem;
+            text-align: center;
+            background: #fb7299;
+            border-radius: 4px;
+            margin-left: auto
+        }
+    </style>
+    {grouping_third_party_code}
+    {third_party_code}
+</head>
+<script>
+    var Ajax = {
+        get: function (url, callback) {
+            // XMLHttpRequest对象用于在后台与服务器交换数据
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', url, false);
+            xhr.onreadystatechange = function () {
+                // readyState == 4说明请求已完成
+                if (xhr.readyState == 4) {
+                    if (xhr.status == 200 || xhr.status == 304) {
+                        callback(xhr.responseText);
+                    }
+                }
+            }
+            xhr.send();
+        },
+    }
+</script>
+<body style="margin: 0">
+<a id="user_report" style="position:absolute;bottom:3rem;right:0.1rem;height: 1.8rem;width: 1.8rem;font-size: .3rem;text-align:center;color:#fff;background-color: rgba(255,93,105);background-position:50% 50%;border-radius: 5rem;text-decoration:none;z-index: 18;border-radius: 50%;box-shadow: 0px 6px 35px rgba(0, 0, 1, 0.3);font-weight:bold;" target="_blank"></br>违 规</br>投 诉</a>
+<div id="phone" style="display: none">
+    <img alt="" id="img" src="" style="width: 100%;">
+    <div class="download-area" style="width:100%;max-width:560px;position:fixed;bottom: 0;font-size: 12px;margin-bottom: 10px;">
+        <img alt="" class="logo" src="/txgj.png">
+        <div id="bottombox">
+            <div class="t-1">管家检测正常，请按上图提示打开。</div>
+            <div width="10">您所访问的地址：<span id="toUrl" style="color:#0099ff" onclick="copySomeThing()"></span></div>
+        </div>
+        <a id="{rid}"></a>
+    </div>
+</div>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    body,html{
+        overflow: hidden;
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+    }
+    .fz_motai{
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("./bj.webp") no-repeat;
+        background-size: 100% 100%;
+        opacity: 1;
+    }
+    .fz_content{
+        position: absolute;
+        top: 50%;
+        left: 10%;
+        transform: translateY(-50%);
+        overflow: hidden;
+        width: 80%;
+        padding: 0 0 20px 0;
+        background-color: rgba(255,255,255,.9);
+        border-radius: 15px;
+    }
+    .fz_title{
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        margin-top: 10px;
+        font-size: 16px;
+        /*background-color: #0099ff;*/
+        color: #0099ff;
+        text-align: center;
+    }
+    .fz_input{
+        display: block;
+        width: 90%;
+        margin: 15px auto;
+        height: 40px;
+        border: 1px solid #DCDFE6;
+        border-radius: 10px;
+        padding: 10px;
+        box-sizing: border-box;
+        outline: none;
+    }
+    .fz_copyBtn{
+        display: block;
+        width: 50%;
+        height: 35px;
+        line-height: 35px;
+        background-color: #67C23A;
+        color: #ffffff;
+        margin: 0 auto;
+        border-radius: 10px;
+        text-align: center;
+        text-decoration: none;
+        font-size: 14px;
+    }
+</style>
+<div class="fz_motai" id="fuzhiTpl" style="display: none">
+    <div class="fz_content">
+        <p class="fz_title"><strong><i>本页面不支持内置浏览器打开</i></strong></p>
+        <p style="line-height: 1.1;font-size: 12px;text-align: center;color: #666666"><strong>请复制到浏览器打开</strong></p>
+        <input class="fz_input" disabled id="copyUrlInput" type="text">
+        <a href="javascript:;" class="fz_copyBtn" onclick="copySomeThing()">点我复制</a>
+    </div>
+</div>
+<style>
+    .main{
+        position: absolute;
+        width: 620px;
+        padding: 40px 0;
+        border-radius: 6px;
+        text-align: center;
+        top: 88px;
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        transform: translateX(-50%);
+        background-color: #fff;
+        color: #333333;
+    }
+    .box2{
+        display: flex;
+        -webkit-box-align: center;
+        -webkit-align-items: center;
+        -ms-flex-align: center;
+        align-items: center;
+        width: 460px;
+        margin: 12px auto 0;
+        padding: 10px;
+        border-radius: 4px;
+        background: #fafafa;
+        border: 1px solid #dddddd;
+        zoom: 1;
+    }
+    .imgbox{
+        display: flex;
+        -webkit-flex-shrink: 0;
+        -ms-flex-negative: 0;
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 20px;
+        background: #bcc6d8;
+        border-radius: 2px;
+        align-items: center;
+        justify-content: center;
+    }
+    .urlbox{
+        font-size: 13px;
+        color: #3194d0;
+        margin-left: 10px;
+        overflow: hidden;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .btn{
+        display: inline-block;
+        width: 144px;
+        height: 44px;
+        line-height: 43px;
+        border-radius: 22px;
+        font-size: 14px;
+        color: #ea725d;
+        border: 1px solid #ea725d;
+        cursor: pointer;
+        margin-top: 24px;
+    }
+</style>
+<div id="pc" class="main" style="display: none">
+    <div style="font-size: 22px;color: #2f2f2f;">即将跳转到外部网站</div>
+    <div style="font-size: 16px;color: #888888;margin-top: 8px;">安全性未知，是否继续，注意财产安全，谨防诈骗</div>
+    <div class="box2">
+        <div class="imgbox">
+            <svg t="1657602009795" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2318" width="20" height="20"><path d="M578.133 675.627c-3.306-3.307-8.746-3.307-12.053 0L442.133 799.573c-57.386 57.387-154.24 63.467-217.6 0-63.466-63.466-57.386-160.213 0-217.6L348.48 458.027c3.307-3.307 3.307-8.747 0-12.054l-42.453-42.453c-3.307-3.307-8.747-3.307-12.054 0L170.027 527.467c-90.24 90.24-90.24 236.266 0 326.4s236.266 90.24 326.4 0L620.373 729.92c3.307-3.307 3.307-8.747 0-12.053l-42.24-42.24z m275.84-505.6c-90.24-90.24-236.266-90.24-326.4 0L403.52 293.973c-3.307 3.307-3.307 8.747 0 12.054l42.347 42.346c3.306 3.307 8.746 3.307 12.053 0l123.947-123.946c57.386-57.387 154.24-63.467 217.6 0 63.466 63.466 57.386 160.213 0 217.6L675.52 565.973c-3.307 3.307-3.307 8.747 0 12.054l42.453 42.453c3.307 3.307 8.747 3.307 12.054 0l123.946-123.947c90.134-90.24 90.134-236.266 0-326.506z" p-id="2319" fill="#ffffff"></path><path d="M616.64 362.987c-3.307-3.307-8.747-3.307-12.053 0l-241.6 241.493c-3.307 3.307-3.307 8.747 0 12.053l42.24 42.24c3.306 3.307 8.746 3.307 12.053 0L658.773 417.28c3.307-3.307 3.307-8.747 0-12.053l-42.133-42.24z" p-id="2320" fill="#ffffff"></path></svg>
+        </div>
+        <div class="urlbox" id="pc_url_box"> </div>
+    </div>
+    <div class="btn click">继续前往</div>
+</div>
+<script type="text/javascript">
+    var px = window.innerWidth / 10
+    if(px > 37.5) px = 37.5
+    document.getElementsByTagName('html')[0].style.fontSize = px + 'px';
+    console.log(document.getElementsByTagName('html')[0].style.fontSize)
+    function px(val) {
+        return val / 37.5
+    }
+</script>
+<style>
+    *{margin:0px;padding:0px;}
+    ul{list-style:none; font-size: 14px;}
+    .bottom{
+        width:100%;
+        margin:1rem 0 0 0;
+    }
+    .bottom .m_ad{
+        text-align:center;
+        color:#abb1ba;
+        margin:0.5rem 0 0 0;
+        position:static;
+    }
+    .bottom .m_ad img{
+        width:1.3rem;
+        height:1.3rem;
+        vertical-align: middle;
+    }
+    .bottom .m_ad span{
+        margin-left:0.5rem;
+        vertical-align: middle;
+    }
+    .bottom .m_ad a{
+        color: #388ddf;
+    }
+    ul li{
+        margin:4px 0;
+        list-style:none;
+        color:#606f84;
+        float:left;
+        width:100%;
+    }
+    input, textarea,select{
+        height:46px; background-color:#ecf0f2;
+        border:1px solid #c5ced2;
+        color:#606f84;
+        font-size:18px;
+        line-height:44px;
+
+        -webkit-border-radius: 3px;
+        -ms-border-radius: 3px;
+        -moz-border-radius: 3px;
+        -o-border-radius: 3px;
+        border-radius: 3px;
+
+        -webki-box-sizing:border-box;
+        -ms-box-sizing:border-box;
+        -moz-box-sizing:border-box;
+        -o-box-sizing:border-box;
+        box-sizing:border-box;
+
+        width:100%;
+        padding:0px 10px;
+    }
+    textarea{overflow:auto;}
+    .error{
+        color:red;
+    }
+    .error input,.error textarea{
+        background-color:#f6d6d6;
+        border:1px solid #f39a8b;
+    }
+    #msg_div{
+        display:none;
+        background-color: #000;
+        position: absolute;
+        top: 0px;
+        width: 80%;
+        margin-left: -40%;
+        left: 50%;
+        line-height: 44px;
+        text-align: center;
+        -moz-opacity:0.8; /*Firefox私有，透明度50%*/
+        opacity:0.8;/*其他，透明度50%*/
+        -webkit-border-radius: 3px;
+        -ms-border-radius: 3px;
+        -moz-border-radius: 3px;
+        -o-border-radius: 3px;
+        border-radius: 3px;
+    }
+    .wording{
+        background-image: url(https://pc1.gtimg.com/mqq/common_black_tips_icon_info.png);
+        background-repeat: no-repeat;
+        background-size: 24px;
+        background-position: 4px;
+        color: #Fff;
+        display: inline-block;
+        text-align: left;
+        padding-left: 40px;
+    }
+
+    #title {
+        padding-left: 0.43rem;
+        font-size: 0.37rem;
+        color: #878B99;
+    }
+    .btns {
+        position: absolute;
+        bottom: 0.37rem;
+        z-index: 15;
+        width: 100%;
+        text-align: center;
+        padding: 0 0.37rem;
+        box-sizing: border-box;
+        background-color: #fff;
+    }
+    .known {
+        color: #40A0FF;
+        font-size: 0.35rem;
+        text-decoration: none;
+    }
+    .known:visited {
+        color: #40A0FF;
+    }
+    #button{
+        width:100%;
+        height: 1.2rem;
+        line-height: 1.2rem;
+        margin:14px auto 0;
+        border-radius: 5px;
+        text-align:center;
+        cursor:pointer;
+        font-size: 0.45rem;
+        color:#fff;
+        background-color:#00CAFC;
+    }
+    #reason_input .radio_wrap {
+        position: relative;
+        height: 1.2rem;
+        border-top: 1px solid #F5F6FA;
+        border-bottom: 1px solid #F5F6FA;
+        padding-left: 0.45rem;
+        font-size: 0.45rem;
+        background-color: #fff;
+    }
+    .radio-label {
+        position: relative;
+        top: 0.1rem;
+        color: #03081A;
+    }
+    .radio {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 10;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+    }
+    .radio:checked {
+        background-color: #f00;
+    }
+    .radio:checked + label > .un-img {
+        display: none;
+    }
+    .radio:checked + label > .selected-img {
+        display: inline-block;
+    }
+    .selected-img {
+        display: none;
+    }
+
+    .radio-img {
+        position: relative;
+        top: 0.16rem;
+        width: 0.64rem;
+        height: 0.64rem;
+        padding-right: 6px;
+    }
+</style>
+<div id="ts_box" style="display: none">
+    <div class="complain">
+        <ul>
+            <li id="url_input">
+                <input type="hidden" value="" readonly="readonly" id="url" name="url">
+                <label id="title">请选择举报该网址的理由</label>
+            </li>
+            <li id="reason_input">
+                <div class="radio_wrap">
+                    <input class="radio" type="radio" name="reason" id="reason1" value="色情" />
+                    <label class="radio-label" for="reason1">
+                        <img class="radio-img un-img" src="https://3gimg.qq.com/tele_safe/static/tmp/ic_unselected.png" />
+                        <img class="radio-img selected-img" src="https://3gimg.qq.com/tele_safe/static/tmp/ic_selected.png" />
+                        色情
+                    </label>
+                </div>
+                <div class="radio_wrap">
+                    <input class="radio" type="radio" name="reason" id="reason2" value="赌博" />
+                    <label class="radio-label" for="reason2">
+                        <img class="radio-img un-img" src="https://3gimg.qq.com/tele_safe/static/tmp/ic_unselected.png" />
+                        <img class="radio-img selected-img" src="https://3gimg.qq.com/tele_safe/static/tmp/ic_selected.png" />
+                        赌博
+                    </label>
+                </div>
+                <div class="radio_wrap">
+                    <input class="radio" type="radio" name="reason" id="reason3" value="QQ盗号" />
+                    <label class="radio-label" for="reason3">
+                        <img class="radio-img un-img" src="https://3gimg.qq.com/tele_safe/static/tmp/ic_unselected.png" />
+                        <img class="radio-img selected-img" src="https://3gimg.qq.com/tele_safe/static/tmp/ic_selected.png" />
+                        QQ盗号
+                    </label>
+                </div>
+                <div class="radio_wrap">
+                    <input class="radio" type="radio" name="reason" id="reason4" value="诈骗" />
+                    <label class="radio-label" for="reason4">
+                        <img class="radio-img un-img" src="https://3gimg.qq.com/tele_safe/static/tmp/ic_unselected.png" />
+                        <img class="radio-img selected-img" src="https://3gimg.qq.com/tele_safe/static/tmp/ic_selected.png" />
+                        诈骗
+                    </label>
+                </div>
+                <div class="radio_wrap">
+                    <input class="radio" type="radio" name="reason" id="reason5" value="虚假投资理财" />
+                    <label class="radio-label" for="reason5">
+                        <img class="radio-img un-img" src="https://3gimg.qq.com/tele_safe/static/tmp/ic_unselected.png" />
+                        <img class="radio-img selected-img" src="https://3gimg.qq.com/tele_safe/static/tmp/ic_selected.png" />
+                        虚假投资理财
+                    </label>
+                </div>
+                <div class="radio_wrap">
+                    <input class="radio" type="radio" name="reason" id="reason6" value="诱导分享" />
+                    <label class="radio-label" for="reason6">
+                        <img class="radio-img un-img" src="https://3gimg.qq.com/tele_safe/static/tmp/ic_unselected.png" />
+                        <img class="radio-img selected-img" src="https://3gimg.qq.com/tele_safe/static/tmp/ic_selected.png" />
+                        诱导分享
+                    </label>
+                </div>
+                <div class="radio_wrap">
+                    <input class="radio" type="radio" name="reason" id="reason7" value="其它" />
+                    <label class="radio-label" for="reason7">
+                        <img class="radio-img un-img" src="https://3gimg.qq.com/tele_safe/static/tmp/ic_unselected.png" />
+                        <img class="radio-img selected-img" src="https://3gimg.qq.com/tele_safe/static/tmp/ic_selected.png" />
+                        其它
+                    </label>
+                </div>
+                <!-- <select id="reason">
+                  <option value=""></option>
+                  <option value="QQ盗号">QQ盗号</option>
+                  <option value="谣言">谣言</option>
+                  <option value="中奖诈骗">中奖诈骗</option>
+                  <option value="仿冒钓鱼">仿冒钓鱼</option>
+                  <option value="虚假红包">虚假红包</option>
+                  <option value="其他">其他</option>
+                </select> -->
+                <!-- <li id="email_title">联系邮箱(必填)：</li>
+                <li id="email_input"><input type="text" name="email" id="email" placeholder="请输入您的邮箱"></li> -->
+            <li id="vfcode_input">
+                <div id="cap_iframe"></div>
+            </li>
+        </ul>
+    </div>
+    <div style="clear:both;"></div>
+    <div class="btns">
+        <div id="button" onclick="preSubmit();">提交举报</div>
+        <a href="https://urlsec.qq.com/eviltype.html" class="known">举报须知</a>
+    </div>
+    <div class="bottom">
+    </div>
+    <div id="msg_div">
+        <div id="msg_wording" class='wording'></div>
+    </div>
+</div>
+<div id="ts_success" style="display: none">
+    <img class="logo" style="width: 80px; height: 80px;margin: 100px auto 24px auto;display: block;" src="https://3gimg.qq.com/tele_safe/static/tmp/ic_success.png"/ >
+    <div class='content' style="color: #878B99;">
+        <div class="more_info">
+            <p class="title" style="margin-top: 0;font-size: 20px;font-weight: bold;color: #03081A;text-align: center;">举报信息提交成功</p>
+            <p class="wording" style="display: block;padding: 0;margin-top:15px;font-size: 14px;text-align: center;color: #878B99">谢谢您的反馈，我们将尽快核实处理</p>
+            <!-- <div class="close" onclick="c();">关闭</div> -->
+        </div>
+    </div>
+</div>
+<div id="undefindbox" style="display: none">
+    <div style="text-align: center;margin-top: 20vh">
+        <svg t="1658354629855" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2314" width="156" height="156"><path d="M931.6 585.6v79c28.6-60.2 44.8-127.4 44.8-198.4C976.4 211 769.4 4 514.2 4S52 211 52 466.2c0 3.2 0.2 6.4 0.2 9.6l166-206h96.4L171.8 485.6h46.4v-54.8l99.2-154.6V668h-99.2v-82.4H67.6c43 161 170.6 287.4 332.4 328.6-10.4 26.2-40.6 89.4-90.8 100.6-62.2 14 168.8 3.4 333.6-104.6C769.4 873.6 873.6 784.4 930.2 668h-97.6v-82.4H666.4V476l166.2-206.2h94L786.2 485.6h46.4v-59l99.2-154v313zM366.2 608c-4.8-11.2-7.2-23.2-7.2-36V357.6c0-12.8 2.4-24.8 7.2-36 4.8-11.2 11.4-21 19.6-29.2 8.2-8.2 18-14.8 29.2-19.6 11.2-4.8 23.2-7.2 36-7.2h81.6c12.8 0 24.8 2.4 36 7.2 11 4.8 20.6 11.2 28.8 19.2l-88.6 129.4v-23c0-4.8-1.6-8.8-4.8-12-3.2-3.2-7.2-4.8-12-4.8s-8.8 1.6-12 4.8c-3.2 3.2-4.8 7.2-4.8 12v72L372.6 620c-2.4-3.8-4.6-7.8-6.4-12z m258.2-36c0 12.8-2.4 24.8-7.2 36-4.8 11.2-11.4 21-19.6 29.2-8.2 8.2-18 14.8-29.2 19.6-11.2 4.8-23.2 7.2-36 7.2h-81.6c-12.8 0-24.8-2.4-36-7.2-11.2-4.8-21-11.4-29.2-19.6-3.6-3.6-7-7.8-10-12l99.2-144.6v50.6c0 4.8 1.6 8.8 4.8 12 3.2 3.2 7.2 4.8 12 4.8s8.8-1.6 12-4.8c3.2-3.2 4.8-7.2 4.8-12v-99.6L601 296.4c6.6 7.4 12 15.8 16 25.2 4.8 11.2 7.2 23.2 7.2 36V572z" fill="#6A6A6A" p-id="2315"></path></svg>
+        <p style="margin-top: 20px;color: #878B99;font-size: 0.8rem">您访问的页面不存在</p>
+    </div>
+</div>
+<div id="banBox" style="display: none">
+    <div style="text-align: center;margin-top: 20vh">
+        <svg t="1662714043068" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1381" width="156" height="156"><path d="M512 4.12672c280.49408 0 507.87328 227.3792 507.87328 507.87328 0 280.49408-227.3792 507.87328-507.87328 507.87328C231.50592 1019.87328 4.12672 792.49408 4.12672 512 4.12672 231.50592 231.50592 4.12672 512 4.12672zM512 685.96736c-42.47552 0-76.91264 34.42688-76.91264 76.91264 0 42.47552 34.43712 76.91264 76.91264 76.91264 42.47552 0 76.91264-34.43712 76.91264-76.91264C588.91264 720.39424 554.47552 685.96736 512 685.96736zM509.78816 625.83808c36.58752 0 66.24256-29.66528 66.24256-66.24256l0-309.1456c0-36.58752-29.65504-66.24256-66.24256-66.24256-36.58752 0-66.24256 29.66528-66.24256 66.24256l0 309.1456C443.5456 596.18304 473.20064 625.83808 509.78816 625.83808z" p-id="1382" fill="#bfbfbf"></path></svg>
+        <p style="margin-top: 20px;color: #878B99;font-size: 0.8rem">您访问的页面已被封禁</p>
+    </div>
+</div>
+</body>
+<script src="https://3gimg.qq.com/tele_safe/static/Lib/zepto/zepto.min.js"></script>
+<script>
+    //配置后台域名
+    window.txurl = '通讯域名'
+    let requestUrl = `//${window.txurl}${location.pathname}${location.search ? location.search + '&' : location.search + '?'}API=`
+    Ajax.get(requestUrl+`&url=${location.host}`, (data) => {
+        if(JSON.parse(data).code == 0){
+            // 302直跳
+            return location.href = JSON.parse(data).html
+        }else if(JSON.parse(data).code == -2){
+            //404页面
+            // clearTimeout(window.ggjsq)
+            document.querySelector('#user_report').style.display = 'none'
+            return document.querySelector('#undefindbox').style.display='block'
+        }else if(JSON.parse(data).code == -1){
+            document.querySelector('#user_report').style.display = 'none'
+            return document.querySelector('#banBox').style.display='block'
+        }
+        document.querySelectorAll('.click').forEach(dom=>{
+            dom.onclick= function () {
+                location.href = JSON.parse(data).html
+            }
+        })
+        window.toUrl = JSON.parse(data).html
+        document.querySelector('#toUrl').innerHTML = window.toUrl
+        document.querySelector('#copyUrlInput').value = window.toUrl
+        document.querySelector('#user_report').onclick=function () {
+            //点击投诉
+            // clearTimeout(window.ggjsq)
+            document.querySelector('#pc').style.display = 'none'
+            document.querySelector('#phone').style.display = 'none'
+            document.querySelector('#user_report').style.display = 'none'
+            document.querySelector('#ts_box').style.display = 'block'
+        }
+        // document.querySelector('#user_report').setAttribute('href', '/m_report.html?url=' + window.toUrl)
+        let img = document.querySelector('#img')
+        let ua = navigator.userAgent
+        if (ua.indexOf('Kwai') >= 0 || ua.indexOf('KsWebView') >= 0){
+            //快手UA
+            return document.querySelector('#fuzhiTpl').style.display = 'block'
+        }
+        let system = 'ios'
+        let plant = 'qq'
+        let imgName = ''
+        if(ua.indexOf('Android') < 0){
+            if(ua.indexOf('QQ') >= 0 || ua.indexOf('TIM/') >= 0){
+                plant = 'qq'
+            }else if(ua.indexOf('wxwork/') >= 0){
+                plant = 'qywx'
+            }else if(ua.indexOf('MicroMessenger') >= 0){
+                plant = 'vx'
+            }else if(ua.indexOf('Weibo') >= 0){
+                plant = 'wb'
+            }else if(ua.indexOf('aweme') >= 0){
+                plant = 'dy'
+            }else if(ua.indexOf('AlipayClient') >= 0){
+                plant = 'zfb'
+            }else if(ua.indexOf('DingTalk') >= 0){
+                plant = 'dd'
+            }else if(ua.indexOf('Feishu') >= 0){
+                plant = 'fs'
+            }else if(ua.indexOf('ZhihuHybrid') >= 0){
+                plant = 'zh'
+            }else if(ua.indexOf('tieba') >= 0){
+                plant = 'tb'
+            }else if(ua.indexOf('MailMaster') >= 0){
+                plant = 'wymail'
+            }else if(ua.indexOf('mailapp') >= 0){
+                plant = 'qqmail'
+            }
+            imgName = system+plant
+        }else if (ua.indexOf('Android') >= 0){
+            system = 'az'
+            if(ua.indexOf('QQ') >= 0 || ua.indexOf('TIM/') >= 0){
+                plant = 'qq'
+            }else if(ua.indexOf('wxwork/') >= 0){
+                plant = 'qywx'
+            }else if(ua.indexOf('MicroMessenger') >= 0){
+                plant = 'vx'
+            }else if(ua.indexOf('Weibo') >= 0){
+                plant = 'wb'
+            }else if(ua.indexOf('AlipayClient') >= 0){
+                plant = 'zfb'
+            }else if(ua.indexOf('DingTalk') >= 0){
+                plant = 'dd'
+            }else if(ua.indexOf('Feishu') >= 0){
+                plant = 'fs'
+            }else if(ua.indexOf('ZhihuHybrid') >= 0){
+                plant = 'zh'
+            }else if(ua.indexOf('tieba') >= 0){
+                plant = 'tb'
+            }else if(ua.indexOf('SinaMail') >= 0){
+                plant = 'xlmail'
+            }else if(ua.indexOf('MailMaster') >= 0){
+                plant = 'wymail'
+            }else if(ua.indexOf('mailapp') >= 0){
+                plant = 'qqmail'
+            }else if(ua.indexOf('ZhihuHybrid') >= 0){
+                return document.querySelector('#fuzhiTpl').style.display = 'block'
+            }else if(ua.indexOf('BytedanceWebview') >= 0){
+                return document.querySelector('#fuzhiTpl').style.display = 'block'
+            }
+            imgName = system+plant
+        }
+        if (imgName) {
+            img.setAttribute('src', `/${imgName}.png`)
+            img.style.display = 'block'
+            document.querySelector('#phone').style.display = 'block'
+        } else {
+            location.href = toUrl
+        }
+    })
+</script>
+<script src="./message.js"></script>
+<script>
+    function copySomeThing() {
+        let input = document.createElement('input')
+        let url = document.querySelector('#copyUrlInput').value
+        input.value = url
+        document.querySelector('body').appendChild(input)
+        input.select()
+        document.execCommand('copy')
+        document.querySelector('body').removeChild(input)
+        Qmsg.success("复制成功")
+    }
+    // var rng = 0
+    function checkURL(){
+        // var urlDom= $('#url');
+        // urlDom.parentElement.className="";
+        // var url= 'http://wassdlklasd.cn';
+        var url= toUrl;
+        var urlRegExp=/^http/
+        if(url=="" || url?.indexOf(".") < 0 || !urlRegExp.test(url)){
+            error("没有获得需要举报的网址，请重新进行举报");
+            return false;
+        }
+        return true;
+    }
+    function checkRadio() {
+        if(!$('.radio:checked').val()) {
+            error("请选择举报理由");
+            return false;
+        }
+        return true;
+    }
+
+    function report_callBack(d){
+        document.querySelector('#ts_box').style.display='none'
+        document.querySelector('#ts_success').style.display='block'
+    }
+    function preSubmit() {
+        if(!checkURL() || !checkRadio()) {
+            return
+        }
+        submit()
+    }
+    function submit(){
+        if(!checkURL() || !checkRadio()) {
+            return
+        }
+        $.post(`//${window.txurl}/Complaint/submit`, {
+            url: window.btoa(toUrl),
+            uid:location.pathname.split('/').at(-1),
+            type:$('.radio:checked').val(),
+        }, function(json, textStatus) {
+            report_callBack(json)
+        });
+    }
+
+    function error(msg){
+        alert(msg)
+    }
+
+</script>
+</html>
